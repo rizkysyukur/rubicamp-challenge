@@ -1,18 +1,14 @@
-//code
 function romawi(n) {
-    if (!+n)
-        return NaN;
-    var digits = String(+n).split(""),
-        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-               "","I","II","III","IV","V","VI","VII","VIII","IX"],
-        roman = "",
-        i = 3;
-    while (i--)
-        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
-    var roman = ["I", "V", "X", "L", "C", "D", "M"];
-
+  var result = '';
+  var decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4 ,1];
+  var roman = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+  for (var i = 0; i < decimal.length; i++) {
+    while (n % decimal[i] < n) {
+      result += roman[i];
+      n -= decimal[i];
+    }
+  }
+  return result;
 }
 
 console.log("Script Testing untuk Konversi Romawi\n");
