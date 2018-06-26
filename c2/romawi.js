@@ -1,3 +1,4 @@
+//code
 function romawi(n) {
     if (!+n)
         return NaN;
@@ -10,6 +11,8 @@ function romawi(n) {
     while (i--)
         roman = (key[+digits.pop() + (i * 10)] || "") + roman;
     return Array(+digits.join("") + 1).join("M") + roman;
+    var roman = ["I", "V", "X", "L", "C", "D", "M"];
+
 }
 
 console.log("Script Testing untuk Konversi Romawi\n");
