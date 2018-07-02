@@ -20,11 +20,13 @@ function readline(){
   var readline = require('readline');
   var rl = readline.createInterface({
     input: process.stdin,
-    output : process.stdout
+    output: process.stdout,
+    prompt: 'tulis kalimatmu di sini > '
   });
-  rl.question('Tulis kalimatmu di sini > ', (answer) => {
-    console.log("hasil konversi: "+ sentenceManipulation(`${answer}`));
-    rl.close();
+  rl.prompt();
+  rl.on('line', (input) => {
+      console.log("hasil konversi: "+sentenceManipulation(`${input}`));
+    rl.prompt();
   });
 }
 
