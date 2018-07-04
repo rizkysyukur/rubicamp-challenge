@@ -11,18 +11,19 @@ function tebakKata(){
   console.log("Pertayaan: "+ data[i].definition);
   rl.prompt();
   rl.on('line', (input) =>{
-    if(i < data.length-1){
-      if(data[i].term == `${input}`){
-        console.log("Selamat Anda Benar!");
-        i++;
+    if(data[i].term == `${input}`){
+      console.log("Selamat Anda Benar!");
+      i++;
+      if(i < data.length){
         console.log("\nPertayaan: "+ data[i].definition);
+        rl.prompt();
       }else{
-        console.log("wkwkwkwk, Anda kurang beruntung!\n");
+        console.log("\nHore Anda Menang!");
+        rl.close();
       }
-      rl.prompt();
     }else{
-      console.log("\nHore Anda Menang!");
-      rl.close();
+        console.log("wkwkwkwk, Anda kurang beruntung!\n");
+        rl.prompt();
     }
   });
 }
