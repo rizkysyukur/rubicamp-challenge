@@ -1,0 +1,40 @@
+[
+   {
+      "cecklist": true,
+      "action": "saya akan membeli sarapan",
+      "tag": [
+         "roti",
+         "pagi"
+      ]
+   },
+   {
+      "cecklist": false,
+      "action": "saya akan membersihkan ruang kamar",
+      "tag": []
+   },
+   {
+      "cecklist": true,
+      "action": "saya akan pergi ke bootcamp",
+      "tag": []
+   },
+   {
+      "cecklist": true,
+      "action": "saya akan mengerjakan tugas dari bootcamp",
+      "tag": []
+   },
+   {
+      "cecklist": false,
+      "action": "saya akan masak untuk makan malam",
+      "tag": []
+   },
+   {
+      "cecklist": false,
+      "action": "saya akan makan malam",
+      "tag": []
+   },
+   {
+      "cecklist": false,
+      "action": "saya akan solat isya berjamaah",
+      "tag": []
+   }
+]
