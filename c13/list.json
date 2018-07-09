@@ -25,12 +25,17 @@
    {
       "cecklist": false,
       "action": "saya akan masak untuk makan malam",
-      "tag": []
+      "tag": [
+         "makan",
+         "malam"
+      ]
    },
    {
       "cecklist": false,
       "action": "saya akan makan malam",
-      "tag": []
+      "tag": [
+         "malam"
+      ]
    },
    {
       "cecklist": false,

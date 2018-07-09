@@ -1,4 +1,4 @@
-function stringManipulation(word){
+cd function stringManipulation(word){
   if(word.charAt(0).match(/[aeiouAEIOU]/)){
     return word;
   }else{

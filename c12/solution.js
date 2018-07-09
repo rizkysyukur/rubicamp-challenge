@@ -45,9 +45,9 @@ function tebakKata(json){
         rl.prompt();
     }
   });
-}
 
-function solution(){
+
+functAion solution(){
   let json = null;
   process.argv.forEach((val, index) => {
     json = val;
