@@ -15,8 +15,8 @@ FOREIGN KEY (kode_jurusan) REFERENCES jurusan(kode_jurusan)
 );
 
 CREATE TABLE mata_kuliah(
+nama_mk VARCHAR(30),
 kode_mk VARCHAR(10),
-nama_mk VARCHAR(20),
 sks int,
 PRIMARY KEY (kode_mk)
 );
@@ -26,7 +26,6 @@ kode_dosen VARCHAR(10),
 nama_dosen VARCHAR(30),
 PRIMARY KEY(kode_dosen)
 );
-
 
 CREATE TABLE kontrak(
 nim varchar(10),
@@ -41,6 +40,7 @@ FOREIGN KEY (kode_dosen) REFERENCES dosen(kode_dosen)
 
 INSERT INTO jurusan (kode_jurusan, nama_jurusan)
 VALUES
+('T001', 'teknik informatika'),
 ('T002', 'teknik pangan'),
 ('T003', 'teknik industri'),
 ('T004', 'teknik mesin'),
@@ -82,28 +82,32 @@ VALUES
 ('M007', 'sistem informasi', 3),
 ('M008', 'E-Bussines', 3),
 ('M009', 'optimasi basis data', 3),
-('M010', 'rekayasa web', 3);
+('M010', 'rekayasa web', 3),
+('M011', 'data mining', 3);
 
 INSERT INTO kontrak (nim, kode_mk, kode_dosen, nilai)
 VALUES
 ('123010146', 'M001', 'D004', 'A'),
 ('123010146', 'M002', 'D007', 'A'),
-('123010146', 'M003', 'D001', 'A'),
+('123010146', 'M003', 'D001', 'C'),
 ('123010146', 'M004', 'D009', 'B'),
-('123010146', 'M005', 'D010', 'A'),
+('123010146', 'M005', 'D010', 'D'),
 ('123010127', 'M001', 'D004', 'A'),
 ('123010127', 'M002', 'D007', 'B'),
-('123010127', 'M003', 'D001', 'B'),
-('123010127', 'M004', 'D009', 'B'),
-('123010127', 'M005', 'D010', 'A'),
-('123010126', 'M006', 'D003', 'B'),
+('123010127', 'M003', 'D001', 'D'),
+('123010127', 'M004', 'D009', 'C'),
+('123010127', 'M005', 'D010', 'E'),
+('123010126', 'M006', 'D003', 'C'),
 ('123010126', 'M007', 'D006', 'B'),
 ('123010126', 'M008', 'D003', 'A'),
-('123010126', 'M009', 'D005', 'B'),
+('123010126', 'M009', 'D005', 'C'),
 ('123010126', 'M010', 'D008', 'B'),
-('123010122', 'M008', 'D003', 'A'),
+('123010122', 'M008', 'D003', 'C'),
 ('123010122', 'M009', 'D005', 'B'),
 ('123010122', 'M010', 'D008', 'B'),
-('123010150', 'M003', 'D001', 'B'),
-('123010150', 'M004', 'D009', 'B'),
-('123010150', 'M005', 'D010', 'A');
+('123010150', 'M003', 'D001', 'C'),
+('123010150', 'M004', 'D009', 'C'),
+('123010150', 'M005', 'D010', 'D'),
+('123010146', 'M011', 'D007', 'A'),
+('123010127', 'M011', 'D007', 'A'),
+('123010126', 'M011', 'D007', 'C');
