@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!--  jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+  <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+  <!-- Bootstrap Date-Picker Plugin -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+  <script>
+  $(document).ready(function(){
+    var date_input=$('input[name="date"]'); //our date input has the name "date"
+    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    date_input.datepicker({
+      format: 'mm/dd/yyyy',
+      container: container,
+      todayHighlight: true,
+      autoclose: true,
+    })
+  })
+  </script>
+</head>
+
+<body>
+  <h1>BREAD(Browse, Read, Edit, Add, Delete)</h1>
+  <h2>Filters</h2>
+
+  <form class="" action="/search" method="post">
+    <div class="form-group">
+      <label for="id">ID</label>
+      <input type="text" class="form-control" id="id" placeholder="ID">
+    </div>
+    <div class="form-group">
+      <label for="string">STRING</label>
+      <input type="text" class="form-control" id="string" placeholder="String">
+    </div>
+    <div class="form-group">
+      <label for="integer">Integer</label>
+      <input type="text" class="form-control" id="integer" placeholder="Integer">
+    </div>
+    <div class="form-group">
+      <label for="float">Float</label>
+      <input type="text" class="form-control" float="id" placeholder="Float">
+    </div>
+    <div class="form-group">
+      <label for="boolean">Boolean</label>
+      <select id="boolean" class="form-control">
+        <option>Choose the boolean ...</option>
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  <br><br>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>String</th>
+        <th>Integer</th>
+        <th>Float</th>
+        <th>Date</th>
+        <th>Boolean</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let i=0; i <  data.length; i++){ %>
+        <tr>
+          <td><%= data[i].id %></td>
+          <td><%= data[i].string %></td>
+          <td><%= data[i].integer %></td>
+          <td><%= data[i].float %></td>
+          <td><%= data[i].date %></td>
+          <td><%= data[i].boolean %></td>
+          <td>
+            <a href="edit/<%= data[i].id %>" class="btn btn-success">Edit</a>
+            <a href="delete/<%= data[i].id %>" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <a href="add" class="btn btn-primary">Add</a>
+  </body>
+  </html>
