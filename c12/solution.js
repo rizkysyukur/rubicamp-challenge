@@ -45,13 +45,12 @@ function tebakKata(json){
         rl.prompt();
     }
   });
+}
 
-
-functAion solution(){
+function solution(){
   let json = null;
-  process.argv.forEach((val, index) => {
-    json = val;
-  });
+  process.argv.forEach((val, index) => {json = val});
+
   if(json.slice(json.length-5, json.length) == ".json"){
       tebakKata(json);
   }else{
