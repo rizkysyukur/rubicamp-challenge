@@ -1,72 +1,21 @@
-//
-// var arr = [
-//    {
-//       "id": "A1",
-//       "string": "Testing Data",
-//       "integer": 12,
-//       "float": 1.45,
-//       "date": "12 Desember 2017",
-//       "boolean": true
-//    },
-//    {
-//       "id": "A2",
-//       "string": "testing",
-//       "integer": "25",
-//       "float": "25.5",
-//       "date": "07/18/2018",
-//       "boolean": "true"
-//    },
-//    {
-//       "id": "A3",
-//       "string": "testing",
-//       "integer": "25",
-//       "float": "25.5",
-//       "date": "07/18/2018",
-//       "boolean": "true"
-//    },
-//    {
-//       "id": "A4",
-//       "string": "testing",
-//       "integer": "25",
-//       "float": "25.5",
-//       "date": "07/18/2018",
-//       "boolean": "true"
-//    },
-//    {
-//       "id": "A5",
-//       "string": "testing",
-//       "integer": "25",
-//       "float": "25.5",
-//       "date": "07/18/2018",
-//       "boolean": "true"
-//    }
-// ];
-//
-// console.log(arr[0][key]);
-
-var objects = [
-  {
-    "foo" : "bar",
-    "bar" : "sit"
-  },
-  {
-    "foo" : "lorem",
-    "bar" : "ipsum"
-  },
-  {
-    "foo" : "dolor",
-    "bar" : "amet"
-  }
-];
-
-var results = [];
-
-var toSearch = "lo";
-
-for(var i=0; i<objects.length; i++) {
-  for(key in objects[i]) {
-    if(objects[i][key].indexOf(toSearch)!=-1) {
-      console.log(objects[i][key]);
-    }
-  }
-}
+INSERT INTO bread (id, string, integer, float, date, boolean)
+VALUES
+("2", "Testing", "26", "2.2", "07/23/3018", "true"),
+("3", "Testing", "26", "2.2", "07/23/3018", "true"),
+("4", "Testing", "26", "2.2", "07/23/3018", "true"),
+("5", "Testing", "26", "2.2", "07/23/3018", "true"),
+("6", "Testing", "26", "2.2", "07/23/3018", "true"),
+("7", "Testing", "26", "2.2", "07/23/3018", "true"),
+("8", "Testing", "26", "2.2", "07/23/3018", "true"),
+("9", "Testing", "26", "2.2", "07/23/3018", "true"),
+("10", "Testing", "26", "2.2", "07/23/3018", "true"),
+("11", "Testing", "26", "2.2", "07/23/3018", "true"),
+("12", "Testing", "26", "2.2", "07/23/3018", "true"),
+("13", "Testing", "26", "2.2", "07/23/3018", "true"),
+("14", "Testing", "26", "2.2", "07/23/3018", "true"),
+("15", "Testing", "26", "2.2", "07/23/3018", "true"),
+("16", "Testing", "26", "2.2", "07/23/3018", "true"),
+("17", "Testing", "26", "2.2", "07/23/3018", "true"),
+("18", "Testing", "26", "2.2", "07/23/3018", "true"),
+("19", "Testing", "26", "2.2", "07/23/3018", "true"),
+("20", "Testing", "26", "2.2", "07/23/3018", "true");

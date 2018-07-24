@@ -54,7 +54,7 @@ function solution(){
   if(json.slice(json.length-5, json.length) == ".json"){
       tebakKata(json);
   }else{
-    console.log("Tolong sertakan nama file dengan inputan soalnya");
+    console.log("Tolong sertakan nama file dengan inputan soalnya\nMisalnya 'node solution.js social.json'");
     process.exit(0);
   }
 }

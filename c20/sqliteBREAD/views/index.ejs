@@ -48,14 +48,12 @@
       <label for="boolean">Boolean</label>
       <select class="form-control" name="boolean" id="boolean">
         <option>Choose the boolean ...</option>
-        <option>True</option>
-        <option>False</option>
+        <option>true</option>
+        <option>false</option>
       </select>
     </div>
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
-  <br>
-  <a href="add" class="btn btn-primary">Add</a>
   <br>
   <table class="table table-striped">
     <thead>
@@ -71,20 +69,32 @@
     </thead>
     <tbody>
       <% for(let i=0; i < data.length; i++){ %>
-      <tr>
-        <td><%= data[i].id %></td>
-        <td><%= data[i].string %></td>
-        <td><%= data[i].integer %></td>
-        <td><%= data[i].float %></td>
-        <td><%= data[i].date %></td>
-        <td><%= data[i].boolean %></td>
-        <td>
-          <a href="#" class="btn btn-success">Edit</a>
-          <a href="#" class="btn btn-danger">Delete</a>
-        </td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
-</body>
-</html>
+        <tr>
+          <td><%= data[i].id %></td>
+          <td><%= data[i].string %></td>
+          <td><%= data[i].integer %></td>
+          <td><%= data[i].float %></td>
+          <td><%= data[i].date %></td>
+          <td><%= data[i].boolean %></td>
+          <td>
+            <a href="edit/<%= data[i].id %>" class="btn btn-success">Edit</a>
+            <a href="delete/<%= data[i].id %>" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <a href="add" class="btn btn-primary">Add</a>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <%= cpage == 1 ? '<li class="page-item"><a class="page-link" href="#">Previous</a></li>' : ""; %>
+        <% for(let i = 1; i <= page; i++){ %>
+        <li class="page-item"><a class="page-link" href="/<%= i*5-5 %>/<%= i %>"><%= i %></a></li>
+        <% } %>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </body>
+  </html>

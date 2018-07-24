@@ -82,10 +82,32 @@ router.post('/edit/:id', function(req, res, next) {
   res.redirect('/');
 });
 
-
 router.post('/', function(req, res, next) {
   let id = req.body.id;
   res.send("Id yang dihapus adalah")
-})
+});
+
+Array.prototype.flexFilter = function(info) {
+
+  var matchesFilter, matches = [], count;
+
+  matchesFilter = function(item) {
+    count = 0
+    for (var n = 0; n < info.length; n++) {
+      if (info[n]["Values"].indexOf(item[info[n]["Field"]]) > -1) {
+        count++;
+      }
+    }
+    return count == info.length;
+  }
+
+  for (var i = 0; i < this.length; i++) {
+    if (matchesFilter(this[i])) {
+      matches.push(this[i]);
+    }
+  }
+
+  return matches;
+}
 
 module.exports = router;
