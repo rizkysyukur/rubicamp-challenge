@@ -1,21 +1,39 @@
-INSERT INTO bread (id, string, integer, float, date, boolean)
+INSERT INTO bread (string, integer, float, date, boolean)
 VALUES
-("2", "Testing", "26", "2.2", "07/23/3018", "true"),
-("3", "Testing", "26", "2.2", "07/23/3018", "true"),
-("4", "Testing", "26", "2.2", "07/23/3018", "true"),
-("5", "Testing", "26", "2.2", "07/23/3018", "true"),
-("6", "Testing", "26", "2.2", "07/23/3018", "true"),
-("7", "Testing", "26", "2.2", "07/23/3018", "true"),
-("8", "Testing", "26", "2.2", "07/23/3018", "true"),
-("9", "Testing", "26", "2.2", "07/23/3018", "true"),
-("10", "Testing", "26", "2.2", "07/23/3018", "true"),
-("11", "Testing", "26", "2.2", "07/23/3018", "true"),
-("12", "Testing", "26", "2.2", "07/23/3018", "true"),
-("13", "Testing", "26", "2.2", "07/23/3018", "true"),
-("14", "Testing", "26", "2.2", "07/23/3018", "true"),
-("15", "Testing", "26", "2.2", "07/23/3018", "true"),
-("16", "Testing", "26", "2.2", "07/23/3018", "true"),
-("17", "Testing", "26", "2.2", "07/23/3018", "true"),
-("18", "Testing", "26", "2.2", "07/23/3018", "true"),
-("19", "Testing", "26", "2.2", "07/23/3018", "true"),
-("20", "Testing", "26", "2.2", "07/23/3018", "true");
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true"),
+("Testing", 26, 2.2, "Wed Jul 25 2018 00:00:00 GMT+0700 (WIB)", "true");
+
+
+CREATE TABLE bread(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+string text,
+integer int,
+float float,
+date date,
+boolean boolean
+);
+
+let numbers = [4, 9, 16, 25];
+
+function myFunction(value, index, numbers){
+  console.log(`${value}, ${index}, ${numbers}`);
+}
+
+numbers.forEach(myFunction);
