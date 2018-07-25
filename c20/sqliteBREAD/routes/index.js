@@ -36,7 +36,7 @@ router.get('/search', function(req, res, next){
   if(edate != 0)condition.push(`date<='${edate}'`);
   if(sdate != 0)condition.push(`date>='${sdate}'`);
   if(condition.length > 0){
-    let sql = "SELECT * FROM bread WHERE "+condition.toString().replace(/,/g, " AND ");
+    let sql = "SELECT * FROM bread WHERE "+condition.join(" AND ");
     db.all(sql, [], (err, rows) => {
       if(err)throw err;
       res.render('index', { data: rows, page: 1, cpage: 1 });

@@ -30,23 +30,23 @@
   <form class="" action="" method="post">
     <div class="form-group">
       <label for="string" >STRING</label>
-      <input type="text" class="form-control" id="string" name="string" value="<%= data.string %>">
+      <input type="text" class="form-control" id="string" name="string" value="<%= data.string %>" required>
     </div>
     <div class="form-group">
       <label for="integer">Integer</label>
-      <input type="text" class="form-control" id="integer" name="integer" value="<%= data.integer %>">
+      <input type="text" class="form-control" id="integer" name="integer" value="<%= data.integer %>" required>
     </div>
     <div class="form-group">
       <label for="float" c>Float</label>
-      <input type="text" class="form-control" id="float" name="float" value="<%= data.float %>">
+      <input type="text" class="form-control" id="float" name="float" value="<%= data.float %>" required>
     </div>
     <div class="form-group">
       <label for="date" cl>Date</label>
-      <input type="text" class="form-control" id="date" name="date" value="<%= data.date %>">
+      <input type="text" class="form-control" id="date" name="date" value="<%= util.formatDate(data.date) %>" required>
     </div>
     <div class="form-group">
       <label for="boolean" >Boolean</label>
-      <select id="boolean" class="form-control" name="boolean">
+      <select id="boolean" class="form-control" name="boolean" required>
         <option>Choose the boolean ...</option>
         <option<%= data.boolean == "true" ? " selected" : ""; %>>true</option>
         <option<%= data.boolean == "false" ? " selected" : ""; %>>false</option>

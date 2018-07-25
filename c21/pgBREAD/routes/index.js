@@ -1,9 +1,23 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
+var util = require('../helpers/util');
+module.exports = function(pool){
 
-// connect to database
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('bread.db');
+function getData1(cb){
+  let sql = 'SELECT * FROM bread';
+  pool.query(sql, [], (err, res) => {
+    if (err)throw err;
+    cb(res.rows);
+  });
+}
+
+function getData2(limit, offset, cb){
+  let sql = `SELECT * FROM bread LIMIT ${limit} OFFSET ${offset}`;
+  pool.query(sql, [], (err, res) => {
+    if (err)throw err;
+    cb(res.rows);
+  });
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next){
@@ -11,10 +25,10 @@ router.get('/', function(req, res, next){
   var cpage = req.query.c || 1;
   getData2(5, offset, function(data){
     let sql = 'SELECT COUNT(id) as count FROM bread';
-    db.all(sql, [], (err, rows) => {
+    pool.query(sql, [], (err, res2) => {
       if(err)throw err;
-      var page = Math.ceil(rows[0].count/5);
-      res.render('index', { data: data, page: page, cpage: cpage });
+      var page = Math.ceil(res2.rows[0].count/5);
+      res.render('index', { data: data, page: page, cpage: cpage, util: util });
     });
   });
 });
@@ -36,10 +50,10 @@ router.get('/search', function(req, res, next){
   if(edate != 0)condition.push(`date<='${edate}'`);
   if(sdate != 0)condition.push(`date>='${sdate}'`);
   if(condition.length > 0){
-    let sql = "SELECT * FROM bread WHERE "+condition.toString().replace(/,/g, " AND ");
-    db.all(sql, [], (err, rows) => {
+    let sql = "SELECT * FROM bread WHERE "+condition.join(" AND ");
+    pool.query(sql, (err, item) => {
       if(err)throw err;
-      res.render('index', { data: rows, page: 1, cpage: 1 });
+      res.render('index', { data: item.rows, page: 1, cpage: 1, util: util });
     });
   }else{
     res.redirect('/');
@@ -57,8 +71,7 @@ router.post('/add', function(req, res, next){
   let date = req.body.date;
   let boolean = req.body.boolean;
   let sql = `INSERT INTO bread(string, integer, float, date, boolean) VALUES ('${string}',${integer},${float},'${date}','${boolean}')`;
-  console.log(sql);
-  db.run(sql, function(err2){
+  pool.query(sql, function(err2){
     if(err2)throw err2;
     res.redirect('/');
   });
@@ -66,7 +79,8 @@ router.post('/add', function(req, res, next){
 
 router.get('/delete/:id', function(req, res, next){
   let id = req.params.id;
-  db.run('DELETE FROM bread WHERE id = ?', id, function(err){
+  let sql = `DELETE FROM bread WHERE id = ${id}`;
+  pool.query(sql, function(err){
     if(err)throw err;
     res.redirect('/');
   });
@@ -82,7 +96,7 @@ router.get('/edit/:id', function(req, res, next){
         break;
       }
     }
-    res.render('edit', { data : rows[index]});
+    res.render('edit', { data : rows[index], util, util});
   });
 });
 
@@ -95,27 +109,12 @@ router.post('/edit/:id', function(req, res, next) {
     let date = req.body.date;
     let boolean = req.body.boolean;
     let sql = `UPDATE bread SET string = '${string}', integer = ${integer}, float = ${float}, date = '${date}', boolean = '${boolean}' WHERE id = ${id}`;
-    db.run(sql, function(err){
+    pool.query(sql, function(err){
       if(err)throw err;
       res.redirect('/');
     });
   });
 });
 
-function getData1(cb){
-  let sql = 'SELECT * FROM bread';
-  db.all(sql, [], (err, rows) => {
-    if(err)throw err;
-    cb(rows);
-  });
+return router;
 }
-
-function getData2(limit, offset, cb){
-  let sql = `SELECT * FROM bread LIMIT ${limit} OFFSET ${offset}`;
-  db.all(sql, [], (err, rows) => {
-    if(err)throw err;
-    cb(rows);
-  });
-}
-
-module.exports = router;
