@@ -33,9 +33,8 @@ router.get('/search', function(req, res, next){
   if(integer != 0)condition.push(`integer=${integer}`);
   if(float != 0)condition.push(`float=${float}`);
   if(boolean != 0)condition.push(`boolean='${boolean}'`);
-  if(edate != 0)condition.push(`date<='${new Date(edate)}'`);
-  if(sdate != 0)condition.push(`date>='${new Date(sdate)}'`);
-  res.send(sql);
+  if(edate != 0)condition.push(`date<='${edate}'`);
+  if(sdate != 0)condition.push(`date>='${sdate}'`);
   if(condition.length > 0){
     let sql = "SELECT * FROM bread WHERE "+condition.toString().replace(/,/g, " AND ");
     db.all(sql, [], (err, rows) => {
@@ -55,7 +54,7 @@ router.post('/add', function(req, res, next){
   let string = req.body.string;
   let integer = req.body.integer;
   let float = req.body.float;
-  let date = new Date(req.body.date);
+  let date = req.body.date;
   let boolean = req.body.boolean;
   let sql = `INSERT INTO bread(string, integer, float, date, boolean) VALUES ('${string}',${integer},${float},'${date}','${boolean}')`;
   console.log(sql);
