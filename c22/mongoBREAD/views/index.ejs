@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>POSTGRES BREAD</title>
+  <title>MONGO BREAD</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!--  jQuery -->
@@ -46,13 +46,13 @@
   <form class="" action="/search" method="get">
 
     <div class="form-group">
-      <label for="id">ID</label>
-      <input type="text" class="form-control" name="id" id="id" placeholder="ID">
+      <label for="string">String</label>
+      <input type="text" class="form-control" name="string" id="string" placeholder="String">
     </div>
 
     <div class="form-group">
-      <label for="string">String</label>
-      <input type="text" class="form-control" name="string" id="string" placeholder="String">
+      <label for="integer">Integer</label>
+      <input type="text" class="form-control" name="integer" id="float" placeholder="Integer">
     </div>
 
     <div class="form-group">
@@ -87,7 +87,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>No</th>
         <th>String</th>
         <th>Integer</th>
         <th>FLoat</th>
@@ -100,15 +100,15 @@
     <tbody>
       <% for(let i=0; i < data.length; i++){ %>
         <tr>
-          <td><%= data[i].id %></td>
+          <td><%= i+1 %></td>
           <td><%= data[i].string %></td>
           <td><%= data[i].integer %></td>
           <td><%= data[i].float %></td>
           <td><%= util.formatDate(data[i].date) %></td>
           <td><%= data[i].boolean %></td>
           <td>
-            <a href="../edit/<%= data[i].id %>" class="btn btn-success">Edit</a>
-            <a href="../delete/<%= data[i].id %>" class="btn btn-danger">Delete</a>
+            <a href="../edit/<%= data[i]._id %>" class="btn btn-success">Edit</a>
+            <a href="../delete/<%= data[i]._id %>" class="btn btn-danger">Delete</a>
           </td>
         </tr>
         <% } %>

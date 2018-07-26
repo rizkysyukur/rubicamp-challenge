@@ -1,60 +1,69 @@
-var express = require('express');
-var router = express.Router();
-var util = require('../helpers/util');
-module.exports = function(pool){
+const express = require('express');
+const router = express.Router();
+const util = require('../helpers/util');
 
-function getData1(cb){
-  let sql = 'SELECT * FROM bread';
-  pool.query(sql, [], (err, res) => {
-    if (err)throw err;
-    cb(res.rows);
+const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
+
+// Connection URL
+function connect(cb){
+  var url = 'mongodb://localhost:27017/bread';
+  // Use connect method to connect to the Server
+  MongoClient.connect(url, {useNewUrlParser: true}, function(err, client) {
+    if(err) throw err;
+    const db = client.db("bread");
+    cb(db);
+    // client.close();
   });
 }
 
-function getData2(limit, offset, cb){
-  let sql = `SELECT * FROM bread LIMIT ${limit} OFFSET ${offset}`;
-  pool.query(sql, [], (err, res) => {
-    if (err)throw err;
-    cb(res.rows);
-  });
-}
-
-/* GET home page. */
-router.get('/', function(req, res, next){
-  var offset = req.query.o || 0;
-  var cpage = req.query.c || 1;
-  getData2(5, offset, function(data){
-    let sql = 'SELECT COUNT(id) as count FROM bread';
-    pool.query(sql, [], (err, res2) => {
-      if(err)throw err;
-      var page = Math.ceil(res2.rows[0].count/5);
-      res.render('index', { data: data, page: page, cpage: cpage, util: util });
+function findData(limit, skip, where, cb){
+  connect(function(db){
+    db.collection("bread").find(where).count(function(err, count){
+      db.collection("bread").find(where).skip(skip).limit(limit).toArray(function(err, result){
+        if(err) throw err;
+        cb(result, count);
+      });
     });
   });
+}
+
+function showTable(myQuery, res, req){
+  var skip = parseInt(req.query.o) || 0;
+  var cpage = req.query.c || 1;
+  findData(5, skip, myQuery, function(result, count){
+    var page = Math.ceil(count/5);
+    res.render('index', { data: result, page: page, cpage: cpage, util: util });
+  });
+}
+// /* GET home page. */
+
+router.get('/', function(req, res, next){
+  showTable({}, res, req);
 });
 
+
 router.get('/search', function(req, res, next){
-  let id = req.query.id || 0;
   let string = req.query.string || 0;
   let integer = req.query.integer || 0;
   let float = req.query.float || 0;
   let sdate = req.query.sdate || 0;
   let edate = req.query.edate || 0;
-  let condition = [];
   let boolean = req.query.boolean || 0;
-  if(id != 0)condition.push(`id=${id}`);
-  if(string != 0)condition.push(`string='${string}'`);
-  if(integer != 0)condition.push(`integer=${integer}`);
-  if(float != 0)condition.push(`float=${float}`);
-  if(boolean != 0)condition.push(`boolean='${boolean}'`);
-  if(edate != 0)condition.push(`date<='${edate}'`);
-  if(sdate != 0)condition.push(`date>='${sdate}'`);
-  if(condition.length > 0){
-    let sql = "SELECT * FROM bread WHERE "+condition.join(" AND ");
-    pool.query(sql, (err, item) => {
-      if(err)throw err;
-      res.render('index', { data: item.rows, page: 1, cpage: 1, util: util });
-    });
+  let myQuery = {};
+
+  if(string != 0)myQuery.string = string;
+  if(integer != 0)myQuery.integer = integer;
+  if(float != 0)myQuery.float = float;
+  if(boolean != 0)myQuery.boolean = boolean;
+  if(sdate != 0)myQuery.date = {"$gte": sdate};
+  if(edate != 0)myQuery.date != undefined ? myQuery.date["$lte"] = edate : myQuery.date = {"$lte": edate};
+
+  var skip = parseInt(req.query.o) || 0;
+  var cpage = req.query.c || 1;
+
+  if(Object.keys(myQuery).length !== 0){
+    showTable(myQuery, res, req);
   }else{
     res.redirect('/');
   }
@@ -70,28 +79,33 @@ router.post('/add', function(req, res, next){
   let float = req.body.float;
   let date = req.body.date;
   let boolean = req.body.boolean;
-  let sql = `INSERT INTO bread(string, integer, float, date, boolean) VALUES ('${string}',${integer},${float},'${date}','${boolean}')`;
-  pool.query(sql, function(err2){
-    if(err2)throw err2;
-    res.redirect('/');
+  let myObj = {string: string, integer: integer, float: float, date: date, boolean: boolean};
+  connect(function(db){
+    db.collection("bread").insertOne(myObj, function(err, data){
+      if(err) throw err;
+      res.redirect('/');
+    });
   });
 });
 
 router.get('/delete/:id', function(req, res, next){
-  let id = req.params.id;
-  let sql = `DELETE FROM bread WHERE id = ${id}`;
-  pool.query(sql, function(err){
-    if(err)throw err;
-    res.redirect('/');
+  let id = mongoose.Types.ObjectId(req.params.id);
+  console.log(id);
+  let myQuery = { _id: id };
+  connect(function(db){
+    db.collection("bread").deleteOne(myQuery, function(err, obj){
+      if(err) throw err;
+      res.redirect('/');
+    });
   });
 });
 
 router.get('/edit/:id', function(req, res, next){
-  let id = parseInt(req.params.id);
-  getData1(function(rows){
+  let id = req.params.id;
+  findData(0, 0, {}, function(rows){
     var index = -1;
     for(let i=0; i<rows.length; i++){
-      if(rows[i].id == id){
+      if(rows[i]._id == id){
         index = i;
         break;
       }
@@ -101,20 +115,20 @@ router.get('/edit/:id', function(req, res, next){
 });
 
 router.post('/edit/:id', function(req, res, next) {
-  getData1(function(rows){
-    let id = req.params.id;
-    let string = req.body.string;
-    let integer = req.body.integer;
-    let float = req.body.float;
-    let date = req.body.date;
-    let boolean = req.body.boolean;
-    let sql = `UPDATE bread SET string = '${string}', integer = ${integer}, float = ${float}, date = '${date}', boolean = '${boolean}' WHERE id = ${id}`;
-    pool.query(sql, function(err){
+  let id = mongoose.Types.ObjectId(req.params.id);
+  let string = req.body.string;
+  let integer = req.body.integer;
+  let float = req.body.float;
+  let date = req.body.date;
+  let boolean = req.body.boolean;
+  let myQuery = { _id: id };
+  let newValues = { $set:{string: string, integer: integer, float: float, date: date, boolean: boolean} };
+  connect(function(db){
+    db.collection("bread").updateOne(myQuery, newValues, function(err, obj){
       if(err)throw err;
       res.redirect('/');
     });
   });
 });
 
-return router;
-}
+module.exports = router;

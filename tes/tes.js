@@ -1,0 +1,7 @@
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
+db.bread.insertOne({string: "Angri", integer: 24, float: 24.1, date: new Date(), boolean:true})
