@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SQLITE3 BREAD</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!--  jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+  <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+  <!-- Bootstrap Date-Picker Plugin -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+  <script>
+  $(document).ready(function(){
+    var date_input=$('input[name="date"]'); // our date input has the name "date"
+    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    date_input.datepicker({
+      format: 'mm/dd/yyyy',
+      container: container,
+      todayHighlight: true,
+      autoclose: true,
+    })
+  })
+  </script>
+</head>
+<body>
+
+  <h1>Add Data</h1>
+
+  <form class="" action="" method="post">
+
+    <div class="form-group">
+      <label for="string">String</label>
+      <input type="text" class="form-control" name="string" id="string" placeholder="String" required>
+    </div>
+
+    <div class="form-group">
+      <label for="float">Integer</label>
+      <input type="text" class="form-control" name="integer" id="integer" placeholder="Integer" required>
+    </div>
+
+    <div class="form-group">
+      <label for="float">Float</label>
+      <input type="text" class="form-control" name="float" id="float" placeholder="Float" required>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input type="text" class="form-control" name="date" id="date" placeholder="dd/mm/yyyy" required>
+    </div>
+
+    <div class="form-group">
+      <label for="boolean">Boolean</label>
+      <select class="form-control" name="boolean" id="boolean" required>
+        <option>Choose the boolean ...</option>
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/" class="btn btn-warning">Cancel</a>
+  </form>
+
+</body>
+</html>
