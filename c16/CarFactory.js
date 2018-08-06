@@ -52,16 +52,16 @@ class Nav1 extends Car{
 }
 
 class CarFactory{
-  cunstructor(cars = []){
-    this.allcars = cars;
+  constructor(){
+    this.allcars = [];
   }
   produce(m){
     let cars = [];
-    let amount, car;
     let brand = ["avanza", "camry", "corolla", "nav1"];
     for (let i = 0; i < brand.length; i++) {
-      amount = 10 * Math.random();
-      car = [];
+      cars["month"] = m;
+      let amount = 100 * Math.random();
+      let car = [];
       switch (brand[i]) {
         case "avanza":
         for (let j = 0; j < amount; j++)
@@ -81,33 +81,34 @@ class CarFactory{
         break
       }
       cars.push(car);
-      cars["month"] = m;
     }
     this.allcars.push(cars);
   }
+  //
+  // simulationWaranty(){
+  //   month = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  // }
 
-  simulationWaranty(){
-    month = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  showResult(){
+    for (var i = 0; i < this.allcars.length; i++) {
+      console.log(`Hasil produksi bulan ${this.allcars[i]["month"]}, yaitu :`);
+      for (let j = 0; j < this.allcars[i].length; j++) {
+        console.log(`${this.allcars[i][j].length} unit : ${this.allcars[i][j][0].brand}`);
+        console.log("Door    : "+this.allcars[i][j][0].door);
+        console.log("Color   : "+this.allcars[i][j][0].color);
+        console.log("Fuel    : "+this.allcars[i][j][0].fuel);
+        console.log("Seat    : "+this.allcars[i][j][0].seat);
+        console.log("Machine : "+this.allcars[i][j][0].machine);
+        console.log();
+      }
+      console.log("==========================");
+    }
   }
 }
 
-    let showResult = (allcars) => {
-      for (var i = 0; i < allcars.length; i++) {
-        console.log(`Hasil produksi bulan ${allcars[i]["month"]}, yaitu :`);
-        for (let j = 0; j < allcars[i].length; j++) {
-          console.log(`${allcars[i][j].length} unit : ${allcars[i][j][0].brand}`);
-        }
-        console.log();
-      }
-
-
-
-
-
-    }
-
-    let c = new CarFactory();
-    c.produce("Januari");
-    c.produce("Februari");
-    c.produce("Maret");
-    showResult(c.allcars);
+let car = new CarFactory();
+car.produce("Januari");
+car.produce("Februari");
+car.produce("Maret");
+car.produce("Sabit");
+car.showResult();

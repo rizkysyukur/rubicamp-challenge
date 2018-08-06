@@ -24,7 +24,6 @@ const todo = () => {
   });
 
   var task = "";
-
   if(arr.length > 2)arr[2].slice(0,6) == "filter" ? task = "filter" : task = arr[2];
 
   switch(task){
