@@ -21,8 +21,8 @@ module.exports = function(pool){
 
   /* GET home page. */
   router.get('/', function(req, res, next){
-    var offset = req.query.o || 0;
-    var cpage = req.query.c || 1;
+    var offset = req.query.o || 0; // Jika halaman sabtu maka offset dimulai dari no 1 sehingga diisi dengan nol
+    var cpage = req.query.c || 1; // Ketia halaman pertama kali tampil maka paramater c belum didefinisikan sehingga diisi 1
     getData2(5, offset, function(data){
       let sql = 'SELECT COUNT(id) as count FROM bread';
       pool.query(sql, [], (err, res2) => {
