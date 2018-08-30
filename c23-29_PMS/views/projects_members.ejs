@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PMS</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style4.css' />
+</head>
+<body>
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project Management System</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="../projects">Project</a></li>
+          <li><a href="../profile">Profile</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br><br>
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+      <ul class="list-unstyled components">
+        <li>
+          <a href="../projects_overview/<%= id %>">
+            <i class="fas fa-home"></i>
+            Overview
+          </a>
+        </li>
+        <li>
+          <a href="../projects_activity/<%= id %>">
+            <i class="fas fa-briefcase"></i>
+            Activity
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <i class="fas fa-image"></i>
+            Members
+          </a>
+        </li>
+        <li>
+          <a href="../projects_issues/<%= id %>">
+            <i class="fas fa-question"></i>
+            Issues
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+      <button type="button" id="sidebarCollapse" class="btn btn-default">
+        <i class="fas fa-align-left"></i>
+        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+      </button>
+
+      <h1>Members</h1>
+      <h2>Filters</h2>
+      <form class="" action="../search_members/<%= id %>" method="get">
+
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="ck_userid">
+              ID
+            </label>
+          </div>
+          <input type="text" class="form-control" name="userid" id="userid" placeholder="ID">
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="ck_name">
+              Name
+            </label>
+          </div>
+          <input type="text" class="form-control" name="name" id="string" placeholder="String">
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="ck_position">
+              Position
+            </label>
+          </div>
+          <select id="position" name="position" class="form-control">
+            <option selected value="not select">Choose...</option>
+            <option value="Programmer">Programmer</option>
+            <option value="Manager">Manager</option>
+            <option value="Quality Assurance">Quality Assurance</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <br>
+      <h2>Option</h2>
+      <h4>Column</h4>
+
+      <form action="../colum_member/<%= id %>" method="get">
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="id" value="true" <%= colum[0].c_id ? "checked" : "" %> >
+            ID
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="name" value="true" <%= colum[0].c_name ? "checked" : "" %> >
+            Name
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="position" value="true" <%= colum[0].c_position ? "checked" : "" %> >
+            Position
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Apply</button>
+
+      </form>
+
+      <br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <% if(colum[0].c_id){ %><th>ID</th><% } %>
+            <% if(colum[0].c_name){ %><th>Name</th><% } %>
+            <% if(colum[0].c_position){ %><th>Position</th><% } %>
+            <% if(colum[0].c_id || colum[0].c_name || colum[0].c_position){  %><th>Action</th><% } %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% for(let i=0; i < data.length; i++){ %>
+            <tr>
+              <% if(colum[0].c_id){ %><td><%= data[i].userid %></td><% } %>
+              <% if(colum[0].c_name){ %><td><%= data[i].firstname %></td><% } %>
+              <% if(colum[0].c_position){ %><td><%= data[i].role %></td><% } %>
+              <% if(colum[0].c_id || colum[0].c_name || colum[0].c_position){  %><td><a href="../delete_member/<%= id %>/<%= data[i].userid %>" class="btn btn-danger">Delete</a></td><% } %>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        <% if(colum[0].c_id || colum[0].c_name || colum[0].c_position){ %>
+          <!-- show pagination -->
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <!-- show previous button if current page greater than 1 -->
+              <li class="page-item">
+                <% if(cpage > 1){ %>
+                  <a class="page-link" href="../projects_members/<%= id %>?o=<%= (cpage-1)*5-5 %>&c=<%= cpage-1 %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <% } %>
+                </li>
+                <!-- show page button -->
+                <% if(page > 1){ %>
+                  <% for(let i = 1; i <= page; i++){ %>
+                    <li class="page-item <%= cpage == i ? 'active' : ''; %>"><a class="page-link" href="../projects_members/<%= id %>?o=<%= i*5-5 %>&c=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% } %>
+                    <!-- show next button if current page not at last page -->
+                    <li class="page-item">
+                      <% if(cpage != page && page != 0){ %>
+                        <a class="page-link" href="../projects_members/<%= id %>?o=<%= (++cpage)*5-5 %>&c=<%= cpage %>" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                        <% } %>
+                      </li>
+                    </ul>
+                  </nav>
+                  <% } %>
+
+                  <a href="../add_project_member/<%= id %>" class="btn btn-primary">Add Members</a>
+                </div>
+
+              </div>
+
+              <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+              <script type="text/javascript">
+              $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                  $('#sidebar').toggleClass('active');
+                });
+              });
+              </script>
+            </body>
+            </html>

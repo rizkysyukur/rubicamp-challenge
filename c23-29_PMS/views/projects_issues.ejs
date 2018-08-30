@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PMS</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style4.css' />
+</head>
+<body>
+  <nav class="navbar navbar-inverse  navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project Management System</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="../projects">Project</a></li>
+          <li><a href="../profile">Profile</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="../logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br><br>
+  <div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+      <ul class="list-unstyled components">
+
+        <li>
+          <a href="../projects_overview/<%= id %>">
+            <i class="fas fa-home"></i>
+            Overview
+          </a>
+        </li>
+
+        <li>
+          <a href="../projects_activity/<%= id %>">
+            <i class="fas fa-briefcase"></i>
+            Activity
+          </a>
+        </li>
+
+        <li>
+          <a href="../projects_members/<%= id %>">
+            <i class="fas fa-image"></i>
+            Members
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="#">
+            <i class="fas fa-question"></i>
+            Issues
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+      <button type="button" id="sidebarCollapse" class="btn btn-default">
+        <i class="fas fa-align-left"></i>
+        <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+      </button>
+
+      <h1>Issues</h1>
+      <h2>Filters</h2>
+      <form class="" action="../search_issues/<%= id %>" method="get">
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="ck_subject">
+                  Subject
+                </label>
+              </div>
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="ck_issueid">
+                  Issues ID
+                </label>
+              </div>
+              <select id="issueid" name="issueid" class="form-control">
+                <option selected value="not select">Choose...</option>
+                <% for(let i=0; i < issueid.length; i++) { %>
+                  <option value="<%= issueid[i].issuesid %>"><%= issueid[i].issuesid %></option>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="ck_tracker">
+                    Tracker
+                  </label>
+                </div>
+                <select id="tracker" name="tracker" class="form-control">
+                  <option selected value="not select">Choose...</option>
+                  <option value="Bug">Bug</option>
+                  <option value="Feature">Feature</option>
+                  <option value="Support">Support</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="ck_status">
+                    status
+                  </label>
+                </div>
+                <select id="status" name="status" class="form-control">
+                  <option selected value="not select">Choose...</option>
+                  <option value="New">New</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
+                  <option value="Feedback">Feedback</option>
+                  <option value="Clossed">Clossed</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="ck_priority">
+                    priority
+                  </label>
+                </div>
+                <select id="priority" name="priority" class="form-control">
+                  <option selected value="not select">Choose...</option>
+                  <option value="Normal">Normal</option>
+                  <option value="High">High</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Immediate">Immediate</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="ck_assignee">
+                    assignee
+                  </label>
+                </div>
+                <select id="assignee" name="assignee" class="form-control">
+                  <option selected value="not select">Choose...</option>
+                  <% for(let i=0; i < users.length; i++) { %>
+                    <option value="<%= users[i].userid %>"><%= users[i].firstname %></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+
+          <hr>
+          <h2>Option</h2>
+          <h4>Column</h4>
+
+
+          <form action="../colum_issues/<%= id %>" method="get">
+
+            <div class="row">
+
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="issueid" value="true" <%= colum[0].c_issueid ? "checked" : "" %> >
+                    Issue ID
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="subject" value="true" <%= colum[0].c_subject ? "checked" : "" %> >
+                    Subject
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="tracker" value="true" <%= colum[0].c_tracker ? "checked" : "" %> >
+                    Tracker
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="description" value="true" <%= colum[0].c_description ? "checked" : "" %> >
+                    Description
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="status" value="true" <%= colum[0].c_status ? "checked" : "" %> >
+                    Status
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="priority" value="true" <%= colum[0].c_priority ? "checked" : "" %> >
+                    Priority
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="assignee" value="true" <%= colum[0].c_assignee ? "checked" : "" %> >
+                    Assignee
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="startdate" value="true" <%= colum[0].c_startdate ? "checked" : "" %> >
+                    Start Date
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="duedate" value="true" <%= colum[0].c_duedate ? "checked" : "" %> >
+                    Due Date
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="estimatedtime" value="true" <%= colum[0].c_estimatedtime ? "checked" : "" %> >
+                    Estimated Time
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="done" value="true" <%= colum[0].c_done ? "checked" : "" %> >
+                    Done
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="files" value="true" <%= colum[0].c_files ? "checked" : "" %> >
+                    Files
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="spendtime" value="true" <%= colum[0].c_spendtime ? "checked" : "" %> >
+                    Spend Time
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="targetversion" value="true" <%= colum[0].c_targetversion ? "checked" : "" %> >
+                    Target Version
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="author" value="true" <%= colum[0].c_author ? "checked" : "" %> >
+                    Author
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="createddate" value="true" <%= colum[0].c_createddate ? "checked" : "" %> >
+                    Created Date
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="updateddate" value="true" <%= colum[0].c_updateddate ? "checked" : "" %> >
+                    Updated Date
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="closeddate" value="true" <%= colum[0].c_closeddate ? "checked" : "" %> >
+                    Closed Date
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="parenttask" value="true" <%= colum[0].c_parenttask ? "checked" : "" %> >
+                    Parent Task
+                  </label>
+                </div>
+
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="projectid" value="true" <%= colum[0].c_projectid ? "checked" : "" %> >
+                    Project ID
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-2"></div>
+
+
+
+            </div>
+            <button type="submit" class="btn btn-primary">Apply</button>
+
+          </form>
+          <hr>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <% if(colum[0].c_issueid){ %><th>Issues ID</td><% } %>
+                  <% if(colum[0].c_projectid){ %><th>Project ID</td><% } %>
+                    <% if(colum[0].c_subject){ %><th>Subject</td><% } %>
+                      <% if(colum[0].c_tracker){ %><th>Tracker</td><% } %>
+                        <% if(colum[0].c_description){ %><th>Description</td><% } %>
+                          <% if(colum[0].c_status){ %><th>Status</td><% } %>
+                            <% if(colum[0].c_priority){ %><th>Priority</td><% } %>
+                              <% if(colum[0].c_assignee){ %><th>Assignee</td><% } %>
+                                <% if(colum[0].c_startdate){ %><th>Start Date</td><% } %>
+                                  <% if(colum[0].c_duedate){ %><th>Due Date</td><% } %>
+                                    <% if(colum[0].c_estimatedtime){ %><th>Estimated Time</td><% } %>
+                                      <% if(colum[0].c_done){ %><th>Done</td><% } %>
+                                        <% if(colum[0].c_files){ %><th>Files</td><% } %>
+                                          <% if(colum[0].c_spendtime){ %><th>Spend Time</td><% } %>
+                                            <% if(colum[0].c_targetversion){ %><th>Target Version</td><% } %>
+                                              <% if(colum[0].c_author){ %><th>Author</td><% } %>
+                                                <% if(colum[0].c_createddate){ %><th>Created Date</td><% } %>
+                                                  <% if(colum[0].c_updateddate){ %><th>Updated Date</td><% } %>
+                                                    <% if(colum[0].c_closeddate){ %><th>Closed Date</td><% } %>
+                                                      <% if(colum[0].c_parenttask){ %><th>Parent Task</td><% } %>
+                                                        <% if(colum[0].c_issueid || colum[0].c_subject || colum[0].c_tracker || colum[0].c_projectid || colum[0].c_description || colum[0].c_status || colum[0].c_priority || colum[0].c_assignee || colum[0].c_startdate || colum[0].c_duedate || colum[0].c_estimatedate || colum[0].c_done || colum[0].c_files || colum[0].c_spendtime || colum[0].c_targetversion || colum[0].c_author || colum[0].c_createddate || colum[0].c_updateddate || colum[0].c_parenttask){  %><th>Action</th><% } %>
+                                                      </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                      <% for(let i=0; i < data.length; i++){ %>
+                                                        <tr>
+                                                          <% if(colum[0].c_issueid){ %><td><%= data[i].issuesid %></td><% } %>
+                                                          <% if(colum[0].c_projectid){ %><td><%= data[i].projectid %></td><% } %>
+                                                          <% if(colum[0].c_subject){ %><td><%= data[i].subject %></td><% } %>
+                                                          <% if(colum[0].c_tracker){ %><td><%= data[i].tracker %></td><% } %>
+                                                          <% if(colum[0].c_description){ %><td><%= data[i].description %></td><% } %>
+                                                          <% if(colum[0].c_status){ %><td><%= data[i].status %></td><% } %>
+                                                          <% if(colum[0].c_priority){ %><td><%= data[i].priority %></td><% } %>
+                                                          <% if(colum[0].c_assignee){ %><td><%= data[i].assignee %></td><% } %>
+                                                          <% if(colum[0].c_startdate){ %><td><%= util.formatDate(data[i].startdate) %></td><% } %>
+                                                          <% if(colum[0].c_duedate){ %><td><%= util.formatDate(data[i].duedate) %></td><% } %>
+                                                          <% if(colum[0].c_estimatedtime){ %><td><%= data[i].estimatedtime %></td><% } %>
+                                                          <% if(colum[0].c_done){ %><td><%= data[i].done %></td><% } %>
+                                                          <% if(colum[0].c_files){ %><td><%= data[i].files %></td><% } %>
+                                                          <% if(colum[0].c_spendtime){ %><td><%= data[i].spendtime %></td><% } %>
+                                                          <% if(colum[0].c_targetversion){ %><td><%= data[i].targetversion %></td><% } %>
+                                                          <% if(colum[0].c_author){ %><td><%= data[i].author %></td><% } %>
+                                                          <% if(colum[0].c_createddate){ %><td><%= util.formatDate(data[i].createdate) %></td><% } %>
+                                                          <% if(colum[0].c_updateddate){ %><td><%= util.formatDate(data[i].updateddate) %></td><% } %>
+                                                          <% if(colum[0].c_closeddate){ %><td><%= util.formatDate(data[i].closedate) %></td><% } %>
+                                                          <% if(colum[0].c_parenttask){ %><td><%= data[i].parenttask %></td><% } %>
+                                                          <% if(colum[0].c_issueid || colum[0].c_subject || colum[0].c_tracker || colum[0].c_projectid || colum[0].c_description || colum[0].c_status || colum[0].c_priority || colum[0].c_assignee || colum[0].c_startdate || colum[0].c_duedate || colum[0].c_estimatedate || colum[0].c_done || colum[0].c_files || colum[0].c_spendtime || colum[0].c_targetversion || colum[0].c_author || colum[0].c_createddate || colum[0].c_updateddate ||
+                                                          colum[0].c_parenttask){  %>
+                                                            <td><a href="../edit_issue/<%= id %>/<%= data[i].issuesid %>" class="btn btn-warning">Edit</a></td>
+                                                            <td><a href="../delete_issue/<%= id %>/<%= data[i].issuesid %>" class="btn btn-danger">Delete</a></td>
+                                                            <% } %>
+                                                          </tr>
+                                                          <% } %>
+                                                        </tbody>
+                                                      </table>
+                                                      <% if(colum[0].c_id || colum[0].c_subject || colum[0].c_tracker){ %>
+                                                        <!-- show pagination -->
+                                                        <nav aria-label="Page navigation example">
+                                                          <ul class="pagination">
+                                                            <!-- show previous button if current page greater than 1 -->
+                                                            <li class="page-item">
+                                                              <% if(cpage > 1){ %>
+                                                                <a class="page-link" href="../projects_issues/<%= id %>?o=<%= (cpage-1)*5-5 %>&c=<%= cpage-1 %>" aria-label="Previous">
+                                                                  <span aria-hidden="true">&laquo;</span>
+                                                                  <span class="sr-only">Previous</span>
+                                                                </a>
+                                                                <% } %>
+                                                              </li>
+                                                              <!-- show page button -->
+                                                              <% if(page > 1){ %>
+                                                                <% for(let i = 1; i <= page; i++){ %>
+                                                                  <li class="page-item <%= cpage == i ? 'active' : ''; %>"><a class="page-link" href="../projects_issues/<%= id %>?o=<%= i*5-5 %>&c=<%= i %>"><%= i %></a></li>
+                                                                  <% } %>
+                                                                  <% } %>
+                                                                  <!-- show next button if current page not at last page -->
+                                                                  <li class="page-item">
+                                                                    <% if(cpage != page && page != 0){ %>
+                                                                      <a class="page-link" href="../projects_issues/<%= id %>?o=<%= (++cpage)*5-5 %>&c=<%= cpage %>" aria-label="Next">
+                                                                        <span aria-hidden="true">&raquo;</span>
+                                                                        <span class="sr-only">Next</span>
+                                                                      </a>
+                                                                      <% } %>
+                                                                    </li>
+                                                                  </ul>
+                                                                </nav>
+                                                                <% } %>
+
+                                                                <a href="../add_project_issue/<%= id %>" class="btn btn-primary">Add Issue</a>
+                                                              </div>
+
+                                                            </div>
+
+
+                                                            <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+                                                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                                                            <script type="text/javascript">
+                                                            $(document).ready(function () {
+                                                              $('#sidebarCollapse').on('click', function () {
+                                                                $('#sidebar').toggleClass('active');
+                                                              });
+                                                            });
+                                                            </script>
+                                                          </body>
+                                                          </html>
