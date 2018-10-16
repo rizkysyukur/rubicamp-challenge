@@ -5,8 +5,10 @@
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-scripts": "2.0.4",
+    "react-scripts": "2.0.5",
     "react-redux": "^4.2.1",
+    "babel-polyfill": "^6.26.0",
+    "bootstrap": "^3.3.7",
     "redux": "^3.2.1",
     "redux-thunk": "^2.2.0",
     "superagent": "^3.8.2"

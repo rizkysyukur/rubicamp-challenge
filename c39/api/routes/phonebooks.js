@@ -6,6 +6,7 @@ Phonebooks.deleteMany({}, (err)=>{
   if (err) console.log("Clear data failed")
 });
 let data = new Phonebooks({
+  id: Date.now(),
   name: "Saeful",
   phone: "085722876360"
 })
@@ -30,6 +31,7 @@ router.get('/', (req, res) => {
 // ADD
 router.post('/', (req, res)=>{
   let data = new Phonebooks({
+    id : req.body.id,
     name : req.body.name,
     phone : req.body.phone
   })
@@ -50,6 +52,7 @@ router.post('/', (req, res)=>{
 router.put('/:id', (req, res)=>{
   let id = req.params.id;
   Phonebooks.findByIdAndUpdate(id, {
+    id: req.body.id,
     name: req.body.name,
     phone: req.body.phone
   }, {new: true}).then(item=>{

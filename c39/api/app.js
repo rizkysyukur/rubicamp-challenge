@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var phonebooksRouter = require('./routes/phonebooks');
 
+let cors = require('cors');
+
 var app = express();
 
 // Connecting to the database
@@ -30,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

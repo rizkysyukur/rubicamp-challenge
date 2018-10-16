@@ -1,28 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import * as redux from 'redux';
+import {connect} from 'react-redux';
+import AppTextInput from './components/AppTextInput';
+import ListItem from './components/ListItem';
+import * as AppActions from './action';
+import './css/bootstrap.min.css';
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+  componentDidMount(){
+    this.props.actions.loadPhoneBooks();
   }
-}
 
-export default App;
+  render() {
+    const {data, actions} = this.props
+    return (
+      <div className="container">
+      <div className="row">
+      <div className="well text-center"><h1>Phone Book Apps</h1></div>
+      </div>
+      <div className="row">
+      <AppTextInput name="" phone="" onSave={actions.addPhoneBook} />
+      </div>
+      <ListItem data={data} actions={actions} />
+      </div>
+    )}
+  }
+
+  function mapStateToProps(state){
+    return{
+      data: state.data
+    }
+  }
+
+  function mapDispatchToProps(dispatch){
+    return{
+      actions: redux.bindActionCreators(AppActions, dispatch)
+    }
+  }
+
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
