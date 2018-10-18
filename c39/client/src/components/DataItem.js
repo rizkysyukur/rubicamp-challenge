@@ -28,12 +28,12 @@ export default class DataItem extends Component {
     if(!name || !phone){
       return;
     }
-    this.props.editData(this.props.data.id, name, phone);
+    this.props.editPhonebooks(this.props.data.id, name, phone);
     this.setState({editing: false})
   }
 
   render(){
-    const {data, editData, deletePhonebooks} = this.props
+    const {data, editPhonebooks, deletePhonebooks} = this.props
     if(this.state.editing){
       return(
         <tr>

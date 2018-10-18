@@ -51,8 +51,7 @@ router.post('/', (req, res)=>{
 // EDIT
 router.put('/:id', (req, res)=>{
   let id = req.params.id;
-  Phonebooks.findByIdAndUpdate(id, {
-    id: req.body.id,
+  Phonebooks.findOneAndUpdate({id: id}, {
     name: req.body.name,
     phone: req.body.phone
   }, {new: true}).then(item=>{

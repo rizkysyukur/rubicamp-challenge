@@ -40,6 +40,20 @@ export function editData(id, name, phone){
   return {type: types.EDIT_DATA, id, name, phone}
 }
 
+export function editPhonebooks(id, name, phone){
+  return dispatch => {
+    dispatch(editData(id, name, phone))
+    return request
+    .put(`${SERVER_URL}phonebooks/${id}`)
+    .type('form')
+    .send({name: name})
+    .send({phone: phone})
+    .end(err=>{
+      if(err) console.log(err);
+    })
+  }
+}
+
 export function deleteData(id){
   return {type: types.DELETE_DATA, id}
 }
@@ -51,9 +65,7 @@ export function deletePhonebooks(id){
     .delete(`${SERVER_URL}phonebooks/${id}`)
     .set('Accept', 'application/json')
     .end((err)=>{
-      if(err){
-        console.log(err);
-      }
+      if(err) console.log(err);
     })
   }
 }
