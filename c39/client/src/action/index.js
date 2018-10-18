@@ -29,6 +29,7 @@ export function addPhoneBook(name, phone){
         console.log(err);
         dispatch(addPhoneBooksFailure())
       }else{
+        console.log(res.body.data);
         dispatch(addPhoneBooksSuccess(res.body.data))
       }
     })
@@ -41,6 +42,20 @@ export function editData(id, name, phone){
 
 export function deleteData(id){
   return {type: types.DELETE_DATA, id}
+}
+
+export function deletePhonebooks(id){
+  return dispatch => {
+    dispatch(deleteData(id))
+    return request
+    .delete(`${SERVER_URL}phonebooks/${id}`)
+    .set('Accept', 'application/json')
+    .end((err)=>{
+      if(err){
+        console.log(err);
+      }
+    })
+  }
 }
 
 export function deleteAll(){
@@ -63,7 +78,7 @@ export function loadPhoneBooks(){
     .end((err, res) => {
       if(err){
         console.log(err);
-        dispatch(loadPhoneBooksFailure)
+        dispatch(loadPhoneBooksFailure())
       }else{
         dispatch(loadPhoneBooksSuccess(res.body))
       }

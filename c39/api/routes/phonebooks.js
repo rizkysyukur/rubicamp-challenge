@@ -78,8 +78,9 @@ router.put('/:id', (req, res)=>{
 // DELETE
 router.delete('/:id', (req, res)=>{
   let id = req.params.id;
-  Phonebooks.findByIdAndRemove(id).then(item=>{
+  Phonebooks.findOneAndDelete({id: id}).then(item=>{
     if(item){
+      console.log(item);
       res.json({
         status: "SUCCESS",
         data: item

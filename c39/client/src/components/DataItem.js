@@ -23,7 +23,7 @@ export default class DataItem extends Component {
   }
 
   handleSave(){
-    let name = this.state.nama.trim();
+    let name = this.state.name.trim();
     let phone = this.state.phone.trim();
     if(!name || !phone){
       return;
@@ -33,7 +33,7 @@ export default class DataItem extends Component {
   }
 
   render(){
-    const {data, editData, deleteData} = this.props
+    const {data, editData, deletePhonebooks} = this.props
     if(this.state.editing){
       return(
         <tr>
@@ -51,7 +51,7 @@ export default class DataItem extends Component {
         <td>{data.phone}</td>
         <td>
         <button type="button" className="btn btn-success" onClick={this.handleEditClick.bind(this)}><span className="glyphicon glyphicon-pencil"></span> edit </button>&nbsp;
-        <button type="button" className="delete-btn btn btn-danger" onClick={() => deleteData(data.id)}><span className="glyphicon glyphicon-trash"></span> delete</button>
+        <button type="button" className="delete-btn btn btn-danger" onClick={() => deletePhonebooks(data.id)}><span className="glyphicon glyphicon-trash"></span> delete</button>
         </td>
         </tr>
       );

@@ -4,15 +4,14 @@ export default function data(state = [], action){
   switch(action.type){
 
     case ADD_PHONEBOOKS_SUCCESS:
-    let phonebooks = state;
-    console.log(phonebooks, action.phonebooks);
-    let idObject = phonebooks.map(function(x){
+    let idObject = state.map(function(x){
       return x.id;
-    }).indexOf(parseInt(action.phonebooks.id))
-    if(idObject > -1){
+    }).indexOf(parseInt(action.phonebooks.id)) > -1;
+
+    if(idObject){
       return state;
     }else{
-      return [action.phonebooks, ...state]
+      return [...state, action.phonebooks]
     }
 
     case LOAD_PHONEBOOKS_SUCCESS:
@@ -20,12 +19,12 @@ export default function data(state = [], action){
 
     case ADD_DATA:
     return [
+      ...state,
       {
         id: action.id,
         name: action.name,
         phone: action.phone
-      },
-      ...state
+      }
     ]
 
     case EDIT_DATA:
