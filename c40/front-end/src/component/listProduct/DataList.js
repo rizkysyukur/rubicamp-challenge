@@ -36,7 +36,7 @@ class DataList extends Component{
       <div className="row text-right">
 
       <div className="col-xs-12 col-md-12">
-      <a className="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+      <a className="btn btn-success" href="#">Add to cart</a>
       </div>
 
       </div>
@@ -78,7 +78,7 @@ class DataList extends Component{
       <div className="row text-right">
 
       <div className="col-xs-12 col-md-12">
-      <a className="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+      <a className="btn btn-success" href="#">Add to cart</a>
       </div>
 
       </div>
@@ -119,7 +119,7 @@ class DataList extends Component{
       <div className="row text-right">
 
       <div className="col-xs-12 col-md-12">
-      <a className="btn btn-success" href="http://www.jquery2dotnet.com">Add to cart</a>
+      <a className="btn btn-success" href="#">Add to cart</a>
       </div>
 
       </div>
