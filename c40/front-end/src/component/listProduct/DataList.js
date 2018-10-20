@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { NavLink } from 'react-router-dom';
 
 class DataList extends Component{
   render(){
@@ -36,7 +37,7 @@ class DataList extends Component{
       <div className="row text-right">
 
       <div className="col-xs-12 col-md-12">
-      <a className="btn btn-success" href="#">Add to cart</a>
+      <NavLink className="btn btn-success" to='/productDetail'>Add to cart</NavLink>
       </div>
 
       </div>
@@ -78,7 +79,7 @@ class DataList extends Component{
       <div className="row text-right">
 
       <div className="col-xs-12 col-md-12">
-      <a className="btn btn-success" href="#">Add to cart</a>
+      <NavLink className="btn btn-success" to='/productDetail'>Add to cart</NavLink>
       </div>
 
       </div>
@@ -119,7 +120,7 @@ class DataList extends Component{
       <div className="row text-right">
 
       <div className="col-xs-12 col-md-12">
-      <a className="btn btn-success" href="#">Add to cart</a>
+      <NavLink className="btn btn-success" to='/productDetail'>Add to cart</NavLink>
       </div>
 
       </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class Form extends Component {
   render(){
@@ -57,13 +58,13 @@ class Form extends Component {
       <div className="form-group">
       <div className="col-sm-2"></div>
       <div className="col-sm-10">
-      <button type="submit" className="btn btn-danger">Add</button> &nbsp;
-      <button type="submit" className="btn btn-warning">Cancel</button>
+      <NavLink className="btn btn-danger" to='/'>Add</NavLink> &nbsp;
+      <NavLink className="btn btn-warning" to='/'>Cancel</NavLink>
       </div>
       </div>
 
       </form>
-      
+
     );
   }
 }

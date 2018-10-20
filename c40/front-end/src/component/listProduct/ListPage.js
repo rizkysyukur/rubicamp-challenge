@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import '../../css/listProduct.css';
 import DataList from './DataList';
 
@@ -9,7 +10,7 @@ class ListPage extends Component {
 
       <div className="container">
       <br />
-      <button className="btn btn-primary"> Add Ads </button>
+      <NavLink className="btn btn-primary" to='/addForm'> Add Ads </NavLink>
       <br /><br />
 
       <DataList />
