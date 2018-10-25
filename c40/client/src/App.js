@@ -6,7 +6,6 @@ import List from './component/listProduct/ListPage';
 import Form from './component/addForm/FormBox';
 import Detail from './component/productDetail/DetailContainer';
 
-
 class App extends Component {
   render() {
     return (
@@ -21,6 +20,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;

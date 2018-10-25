@@ -4,7 +4,7 @@ import '../../css/listProduct.css';
 import DataList from './DataList';
 import * as redux from 'redux';
 import { connect } from 'react-redux';
-import * as Actios from '../../action';
+import * as Actions from '../../action';
 
 class ListPage extends Component {
   componentDidMount(){
@@ -32,10 +32,23 @@ class ListPage extends Component {
 
 
       </div>
-
-
     );
   }
 }
 
-export default ListPage;
+function mapStateToProps(state){
+  return{
+    data: state.AllProduct
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+    actions: redux.bindActionCreators(Actions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListPage)
