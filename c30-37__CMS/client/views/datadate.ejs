@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CMS</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://localhost:3000/home">Conten Management System</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="http://localhost:3000/home">Home</a></li>
+          <li><a href="http://localhost:3000/data">Data</a></li>
+          <li class="active"><a href="http://localhost:3000/dataDate">Data Date</a></li>
+          <li><a href="http://localhost:3000/maps">Maps</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" id="logout">Logout</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container">
+    <div id="input-alert" class="alert alert-danger" role="alert"></div>
+    <div class="panel panel-warning">
+      <div class="panel-heading text-center">
+        <b class="panel-title">DATA</b>
+      </div>
+      <div class="panel-body">
+        <button id="add-btn" class="btn btn-primary" style="margin-bottom:10px"><span class="glyphicon glyphicon-plus">Add</span></button>
+
+        <div id="add-form" class="panel panel-default">
+          <div class="panel-body">
+            <form class="form-inline">
+              <h3></h3>
+              <div class="form-group">
+                <label for="addletter" class="text-left">Letter</label>
+                <input type="date" class="form-control" id="addletter" placeholder="A" required>
+              </div>
+              <div class="form-group">
+                <label for="addfrequency">Frequency</label>
+                <input type="text" class="form-control" id="addfrequency" placeholder="0.000" required>
+              </div>
+              <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-save">Save</span></button>
+            </form>
+          </div>
+        </div>
+
+        <form id="search-form" class="form-inline">
+          <h3>Search</h3>
+          <div class="form-group">
+            <label for="searchletter" class="text-left">Letter</label>
+            <input onchange="dateSearch()" type="date" class="form-control" id="searchletter" placeholder="A">
+          </div>
+          <div class="form-group">
+            <label for="searchfrequency">Frequency</label>
+            <input type="text" class="form-control" id="searchfrequency" placeholder="0.000">
+          </div>
+        </form>
+
+        <br>
+        <h3>List of Data</h3>
+        <table class="table table-striped">
+          <thead>
+            <th>No</th>
+            <th>ID</th>
+            <th>Letter</th>
+            <th>Frequency</th>
+            <th>Action</th>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  let apiUrl = `http://localhost:3001/api/datadate/`;
+  let apiUrlu = `http://localhost:3001/api/users/`;
+  let id = "";
+
+  $(document).ready(function(){
+    auth(localStorage.getItem('token'));
+    $('#add-form').hide();
+    $('#input-alert').hide();
+    loadData();
+  })
+
+  // GET DATA
+  function drawTable(data){
+    let html = "";
+    let no = 1;
+    // alert(data)
+    data.forEach(item => {
+      html += `<tr>`;
+      html += `<td>${no}</td>`;
+      html += `<td>${item._id}</td>`;
+      html += `<td>${item.letter}</td>`;
+      html += `<td>${item.frequency}</td>`;
+      html += `<td>`
+      html += `<button class="editBtn btn btn-warning" dataid="${item._id}" dataletter="${item.letter}" datafrequency="${item.frequency}"><span class="glyphicon glyphicon-edit">edit</span></button>`;
+      html += `<button class="deleteBtn btn btn-danger" dataid="${item._id}"><span class="glyphicon glyphicon-trash">delete</span></button>`;
+      html += `</td>`
+      html += `</tr>`;
+      no++;
+    })
+    $('table tbody').html(html);
+  }
+
+  function loadData(){
+    $.ajax({
+      url: apiUrl,
+      method: 'GET'
+    }).done(data => {
+      drawTable(data);
+    })
+  }
+
+  // BROWSE DATA
+  function browseData(){
+    $('#add-form').hide();
+    let letter = $('#searchletter').val();
+    let frequency = $('#searchfrequency').val();
+    if(isNaN(frequency) === true && frequency != ""){
+      showAlert("Please insert number")
+    }else{
+      $.ajax({
+        url: apiUrl + 'search',
+        method: 'POST',
+        data:{
+          letter: letter,
+          frequency: frequency
+        }
+      }).done(data => {
+        $('#input-alert').hide();
+        drawTable(data);
+      })
+    }
+  }
+
+  function dateSearch(){
+    browseData()
+  }
+
+  $('#searchfrequency').keyup(function(){
+    browseData();
+  });
+
+  // ADD DATA
+  $("#add-btn").click(function(){
+    if($('#add-form').is(":hidden")){
+      showAddForm("Add Data");
+    }else{
+      $('#add-form').hide();
+    }
+  })
+
+  $('#addletter').keyup(function(){
+    $('#addletter').val($('#addletter').val().toUpperCase());
+  });
+
+  $('#add-form form').submit(function(e){
+    e.preventDefault();
+    saveData();
+  })
+
+
+  // DELETE DATA
+  $("table tbody").on("click", ".deleteBtn", function(){
+    let cfrm = confirm("Are you sure will delete this data?");
+    if(cfrm){
+      $.ajax({
+        url: apiUrl + $(this).attr('dataid'),
+        method: "DELETE"
+      }).done(data => {
+        loadData();
+      })
+    }
+  })
+
+  // EDIT DATA
+  $("table tbody").on("click", ".editBtn", function(){
+    $('#addletter').val($(this).attr('dataletter'));
+    $('#addfrequency').val($(this).attr('datafrequency'));
+    id = $(this).attr('dataid');
+    showAddForm("Edit Data");
+  })
+
+  // HELPERS
+  function saveData(){
+    let letter = $('#addletter').val();
+    let frequency = $('#addfrequency').val();
+    if(isNaN(frequency) === true){
+      showAlert("Please insert number")
+    }else{
+      if(id == ""){
+        // ADD DATA
+        $.ajax({
+          url: apiUrl,
+          method: 'POST',
+          data: {
+            letter: letter,
+            frequency: frequency
+          }
+        }).done(data => {
+          showAlert("Data has been added");
+          $('#addletter').val('');
+          $('#addfrequency').val('');
+          $('#add-form').hide();
+          loadData();
+        })
+      }else{
+        // EDIT DATA
+        $.ajax({
+          url: apiUrl + id,
+          method: 'PUT',
+          data: {
+            letter: letter,
+            frequency: frequency
+          }
+        }).done(data => {
+          showAlert("Data has been edited");
+          $('#addletter').val('');
+          $('#addfrequency').val('');
+          $('#add-form').hide();
+          loadData();
+          id = "";
+        })
+      }
+    }
+  }
+
+  function showAlert(data){
+    $('#input-alert').show();
+    $('#input-alert').html(data);
+  }
+
+  function showAddForm(data){
+    $('#add-form').show();
+    $('#add-form h3').html(data);
+  }
+
+  $('#logout').click(function(e){
+    e.preventDefault();
+    localStorage.clear();
+    window.location = '/login';
+  })
+
+  function auth(token){
+    $.ajax({
+      url: apiUrlu + 'check',
+      method: 'POST',
+      data:{
+        token: token
+      }
+    }).done(data => {
+      if(!data.valid){
+        window.location = '/login';
+      }
+    })
+  }
+
+  </script>
+</body>
+</html>

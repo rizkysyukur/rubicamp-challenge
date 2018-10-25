@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CMS</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <div class="row text-center">
+              <div class="col-md-1"><a href="http://localhost:3000/login"  style="color:white; text-decoration:underline"><h2 class="panel-title">Login</h2></a></div>
+              <div class="col-md-10"><b style="font-size:22px">Register</b></div>
+              <div class="col-md-1"></div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form id="register-form">
+              <div class="form-group">
+                <label for="email" class="text-left">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
+              </div>
+              <div class="form-group">
+                <label for="retypepassword">Confirm Password</label>
+                <input type="password" class="form-control" id="retypepassword" placeholder="Confirm Password" required>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-success">Register Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+  let apiUrl = `http://localhost:3001/api/users`;
+  function register(){
+    $.ajax({
+    url: apiUrl + '/register',
+    method: 'POST',
+    data: {
+      email: $('#email').val(),
+      password: $('#password').val(),
+      retypepassword: $('#retypepassword').val()
+    }
+  }).done(data=>{
+    if(data.token){
+      alert(`New account ${data.data.
+        email} has been registered,\nNow please log in using this account.`);
+      window.location = "/login";
+    }else{
+      alert(data.message);
+    }
+  }).fail(err=>{
+    alert(`something went wrong, ${JSON.stringify(err)}`);
+  })
+}
+
+$('#register-form').submit(function(e){
+  e.preventDefault();
+  register();
+  $(this).find("input[type=email], input[type=password], input[type=password]").val('');
+})
+</script>
+</body>
+</html>

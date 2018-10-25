@@ -12,13 +12,14 @@ class ListPage extends Component {
   }
 
   render() {
+    const { data, actions } = this.props;
     return (
       <div className="container">
       <br />
       <NavLink className="btn btn-primary" to='/addForm'> Add Ads </NavLink>
       <br /><br />
 
-      <DataList />
+      <DataList data={data} />
 
       <nav aria-label="Page navigation example">
       <ul className="pagination">
@@ -29,7 +30,6 @@ class ListPage extends Component {
       <li className="page-item"><a className="page-link" href="#">Next</a></li>
       </ul>
       </nav>
-
 
       </div>
     );
