@@ -18,7 +18,7 @@ class DetailInfo extends Component {
     return(
       <div>
       <h3>Samsung Galaxy S4 I337 16GB 4G LTE Unlocked GSM Android Cell Phone</h3>
-      <h5>Brand <a href="#">Samsung</a> · <small>(5054 votes)</small></h5>
+      <h5>Brand <u>Samsung</u> · <small>(5054 votes)</small></h5>
       <h6 className="title-price"><small>PRICE</small></h6>
       <h3>Rp.3.990.000,-</h3>
 
@@ -49,7 +49,7 @@ class DetailInfo extends Component {
 
       <div className="section" style={this.state.style7}>
       <button className="btn btn-success"><span style={this.state.style7} className="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Buy</button>
-      <h6><a href="#"><span className="glyphicon glyphicon-heart-empty" style={this.state.style8}></span> Like</a></h6>
+      <h6><u><span className="glyphicon glyphicon-heart-empty" style={this.state.style8}></span> Like</u></h6>
       </div>
 
       </div>

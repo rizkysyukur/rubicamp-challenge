@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import List from './component/listProduct/ListPage';
 import Form from './component/addForm/FormBox';
 import Detail from './component/productDetail/DetailContainer';

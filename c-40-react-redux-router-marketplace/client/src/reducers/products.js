@@ -1,4 +1,4 @@
-import {LOAD_DATA, ADD_DATA} from '../constant/ActionTypes';
+import {LOAD_DATA} from '../constant/ActionTypes';
 
 export default function data(state = [], action){
   switch (action.type) {

@@ -16,7 +16,7 @@ export function loadData(){
       if(err){
         console.log(err.message);
       }else{
-        dispatch(loadDataSuccess(res));
+        dispatch(loadDataSuccess(res.body));
       }
     })
   }

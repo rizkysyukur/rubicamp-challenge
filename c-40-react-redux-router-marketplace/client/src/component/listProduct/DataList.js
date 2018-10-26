@@ -1,10 +1,10 @@
-timport React, {Component} from 'react';
+import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
 
 class DataList extends Component{
   render(){
-    let
-
+    let data = this.props.data;
+    let item = data.map(x => item)
     return(
       <div id="products" className="row view-group">
 
